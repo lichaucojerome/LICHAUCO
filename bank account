@@ -1,0 +1,86 @@
+<?php
+
+class BankAccount {
+    private $accountHolderName;
+    private $accountNumber;
+    private $balance;
+
+    public function __construct($accountHolderName, $accountNumber, $balance) {
+        $this->accountHolderName = $accountHolderName;
+        $this->accountNumber = $accountNumber;
+        $this->balance = $balance;
+    }
+
+    public function getAccountHolderName() {
+        return $this->accountHolderName;
+    }
+
+    public function getAccountNumber() {
+        return $this->accountNumber;
+    }
+
+    public function getBalance() {
+        return $this->balance;
+    }
+
+    public function setBalance($balance) {
+        if ($balance >= 0) {
+            $this->balance = $balance;
+        } else {
+            echo "Invalid balance. Balance cannot be negative.<br>";
+        }
+    }
+
+
+    public function deposit($amount) {
+        if ($amount > 0) {
+            $this->setBalance($this->getBalance() + $amount);
+            echo "Deposit of $amount successful.<br>";
+        } else {
+            echo "Invalid deposit amount. Amount must be positive.<br>";
+        }
+    }
+
+    public function withdraw($amount) {
+        if ($amount > 0) {
+            if ($this->getBalance() >= $amount) {
+                $this->setBalance($this->getBalance() - $amount);
+                echo "Withdrawal of $amount successful.<br>";
+            } else {
+                echo "Insufficient funds for withdrawal.<br>";
+            }
+        } else {
+            echo "Invalid withdrawal amount. Amount must be positive.<br>";
+        }
+    }
+
+    public function displayAccountInfo() {
+        echo "Account Holder Name: " . $this->getAccountHolderName() . "<br>";
+        echo "Account Number: " . $this->getAccountNumber() . "<br>";
+        echo "Balance: $" . $this->getBalance() . "<br>";
+    }
+}
+
+
+// Example usage (run this 1 times with different values)
+for ($i = 1; $i <= 1; $i++) {
+    echo "<h2>Run $i:</h2>";
+    $account = new BankAccount("Lian jane  " . $i, "0220245765" . $i, 43687 * $i); // Different initial values each run
+
+    echo "Initial Account Information:<br>";
+    $account->displayAccountInfo();
+    echo "<br>";
+
+    $depositAmount = 4500 * $i;
+    $account->deposit($depositAmount);
+
+    $withdrawalAmount = 2160 * $i;
+    $account->withdraw($withdrawalAmount);
+
+    echo "<br>Updated Account Information:<br>";
+    $account->displayAccountInfo();
+    echo "<br><br>";
+}
+
+
+?>
